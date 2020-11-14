@@ -10,28 +10,35 @@ using namespace std;
 typedef long long ll; typedef unsigned long long ull;
 #define REP(i,n) for (int i=0;i<n;i++)
 #define FOR(i,a,b) for (int i=a;i<b;i++)
+void array_pop(int a[], int& n, int pos) {
+	FOR(i, pos, n - 1) a[i] = a[i + 1];
+	n--;
+}
 #define INF 2*100000+4
 #define MAX 1000
-using namespace std;
-string s1, s2;
-int d[MAX][MAX];
+int a[] = {4,5,3,2,6};
+int flag[MAX];
+int f[MAX];
 int main()
 {
-	s1 = "ALTRUISTIC"; s2 = "ALGORITHM";
-	int s1n = s1.length(), s2n = s2.length();
-	REP(i, s1n + 1) d[i][0] = i;
-	REP(i, s2n + 1) d[0][i] = i;
-	FOR(i, 1, s1n+1) FOR(j, 1, s2n+1)
-		d[i][j] = min(d[i - 1][j]+1, min(d[i][j - 1]+1, d[i - 1][j - 1] + (s1[i-1] != s2[j-1])));
-	cout << "    ";
-	REP(i, s1n) cout << s1[i] << " ";
-	cout << endl;
-	REP(j, s2n+1) {
-		if (1 <= j) cout << s2[j - 1] << " ";
-		else cout << "  ";
-		REP(i, s1n + 1) cout << d[i][j] << " ";
-		cout << endl;
+	int n = sizeof(a) / sizeof(a[0]);
+	REP(i, n) flag[i] = true;
+	REP(i, n) {
+		f[i] = f[i - 1] + a[i];
+		if (a[i] != 1 && a[i - 1] != 1 && !(a[i] == 2 && a[i - 1] == 2))
+			if (f[i] < f[i - 2] + a[i - 1] * a[i]) {
+				f[i] = f[i - 2] + a[i - 1] * a[i];
+				flag[i] = false; flag[i - 1] = true;
+			}
 	}
-	//cout << (s1[1]!=s2[1]);
+	cout <<"Result: "<< f[n - 1]<<endl<<"Checking: ";
+	REP(i, n) if (!flag[i]) {
+		a[i-1] *= a[i];
+	}
+	int sum = 0;
+	REP(i, n) {
+		cout << a[i] << " "; if (flag[i]) sum += a[i]; cout << flag[i] << endl;
+	}
+	cout << endl << sum;
 	return 0;
 }
