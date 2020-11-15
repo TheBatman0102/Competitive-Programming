@@ -16,29 +16,34 @@ void array_pop(int a[], int& n, int pos) {
 }
 #define INF 2*100000+4
 #define MAX 1000
-int a[] = {4,5,3,2,6};
-int flag[MAX];
+int a[] = {4,5,3,2,6,7,8};
+int oflag[MAX], tflag[MAX], cflag[MAX];
 int f[MAX];
 int main()
 {
 	int n = sizeof(a) / sizeof(a[0]);
-	REP(i, n) flag[i] = true;
+	REP(i, n) cout << a[i] << " ";
+	cout << endl;
+	REP(i, n) { oflag[i] = true; tflag[i] = true; cflag[i] = true; }
 	REP(i, n) {
+		tflag[i - 2] = cflag[i - 2]; tflag[i - 1] = cflag[i - 1]; tflag[i - 3] = cflag[i - 3];
 		f[i] = f[i - 1] + a[i];
 		if (a[i] != 1 && a[i - 1] != 1 && !(a[i] == 2 && a[i - 1] == 2))
 			if (f[i] < f[i - 2] + a[i - 1] * a[i]) {
 				f[i] = f[i - 2] + a[i - 1] * a[i];
-				flag[i] = false; flag[i - 1] = true;
+				cflag[i] = false; cflag[i - 1] = true; cflag[i - 2] = oflag[i - 2]; cflag[i - 3] = oflag[i - 3];
 			}
+		oflag[i - 2] = tflag[i - 2]; oflag[i - 1] = tflag[i - 1]; oflag[i - 3] = tflag[i - 3];
 	}
-	cout <<"Result: "<< f[n - 1]<<endl<<"Checking: ";
-	REP(i, n) if (!flag[i]) {
+	int res = f[n - 1];
+	cout <<"Result: "<< res<<endl<<"Checking: ";
+	REP(i, n) if (!cflag[i]) {
 		a[i-1] *= a[i];
 	}
 	int sum = 0;
-	REP(i, n) {
-		cout << a[i] << " "; if (flag[i]) sum += a[i]; cout << flag[i] << endl;
+	REP(i, n) if (cflag[i]) {
+		cout << a[i] << " "; sum += a[i];
 	}
-	cout << endl << sum;
+	cout << endl << boolalpha<<(sum==res);
 	return 0;
 }
