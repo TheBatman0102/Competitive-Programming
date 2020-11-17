@@ -16,8 +16,8 @@ void array_pop(int a[], int& n, int pos) {
 }
 #define INF 2*100000+4
 #define MAX 1000
-int p[] = {5,9,3,15,17,31,27,1,3,9,21,3,3,5,3};
-int e[] = {12,7,6,2,16,4,5,20,13,18,3,1,14,23,5};
+int p[] = {3,5,7};
+int e[] = {8,12,4};
 int f[MAX][MAX];
 int win = 0;
 int minp;
@@ -39,6 +39,6 @@ int main()
 	REP(i, n) cout << e[i]<<"("<<p[i] / 2 + 1<<") "; cout << endl;
 	cout << "Total electoral votes: " << win << endl << "Votes to win: " << win / 2 + 1 << endl;
 	cout << minp << endl;
-	REP(i, n) REP(j, win + 1)  cout <<i<<" "<<j<<" "<< f[i][j] << endl;
+	//REP(i, n) REP(j, win + 1)  cout <<i<<" "<<j<<" "<< f[i][j] << endl;
 	return 0;
 }
