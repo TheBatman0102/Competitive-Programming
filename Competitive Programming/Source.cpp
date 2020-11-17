@@ -16,37 +16,29 @@ void array_pop(int a[], int& n, int pos) {
 }
 #define INF 2*100000+4
 #define MAX 1000
-int a[] = {4,6,3,2,2,5,7,1,2,2,1,8,5,3,1,2,6,5};
-int oflag[MAX], tflag[MAX], cflag[MAX];
-int f[MAX];
-int b[MAX];
+int p[] = {5,9,3,15,17,31,27,1,3,9,21,3,3,5,3};
+int e[] = {12,7,6,2,16,4,5,20,13,18,3,1,14,23,5};
+int f[MAX][MAX];
+int win = 0;
+int minp;
 int main()
 {
-	int n = sizeof(a) / sizeof(a[0]);
-	REP(i, n) cout << a[i] << " ";
-	cout << endl;
-	REP(i, n) { oflag[i] = true; tflag[i] = true; cflag[i] = true; }
-	REP(i, n) {
-		tflag[i - 2] = cflag[i - 2]; tflag[i - 1] = cflag[i - 1]; tflag[i - 3] = cflag[i - 3];
-		f[i] = f[i - 1] + a[i];
-		if (a[i] != 1 && a[i - 1] != 1 && !(a[i] == 2 && a[i - 1] == 2))
-			if (f[i] < f[i - 2] + a[i - 1] * a[i]) {
-				f[i] = f[i - 2] + a[i - 1] * a[i];
-				cflag[i] = false; cflag[i - 1] = true; cflag[i - 2] = oflag[i - 2]; cflag[i - 3] = oflag[i - 3];
-			}
-		oflag[i - 2] = tflag[i - 2]; oflag[i - 1] = tflag[i - 1]; oflag[i - 3] = tflag[i - 3];
+	int n = sizeof(p) / sizeof(p[0]);
+	REP(i, n) win += e[i];
+	REP(j, win + 1) if (j == e[0]) f[0][j] = p[0] / 2 + 1;
+	else f[0][j] = INF;
+	REP(i, n) f[i][0] = 0;
+	FOR(i,1, n) REP(j, win+1)
+	{
+		f[i][j] = f[i - 1][j];
+		if (e[i] <= j) f[i][j] = min(f[i][j], f[i - 1][j - e[i]] + p[i]/2+1);
 	}
-	int res = f[n - 1];
-	cout <<"Result: "<< res<<endl<<"Checking: ";
-	int m = 0;
-	REP(i, n) {
-		if (cflag[i]) b[m] = a[i]; else b[--m] *= a[i];
-		m++;
-	}
-	int sum = 0;
-	REP(i, m) {
-		cout << b[i] << " "; sum += b[i];
-	}
-	cout << endl << boolalpha<<(sum==res);
+	minp = f[n - 1][win / 2 + 1];
+	FOR(j, win / 2 + 2, win + 1) minp = min(minp, f[n - 1][j]);
+	//check
+	REP(i, n) cout << e[i]<<"("<<p[i] / 2 + 1<<") "; cout << endl;
+	cout << "Total electoral votes: " << win << endl << "Votes to win: " << win / 2 + 1 << endl;
+	cout << minp << endl;
+	REP(i, n) REP(j, win + 1)  cout <<i<<" "<<j<<" "<< f[i][j] << endl;
 	return 0;
 }
