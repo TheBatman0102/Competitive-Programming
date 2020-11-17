@@ -16,9 +16,10 @@ void array_pop(int a[], int& n, int pos) {
 }
 #define INF 2*100000+4
 #define MAX 1000
-int a[] = {4,5,3,2,6,7,8};
+int a[] = {4,6,3,2,2,5,7,1,2,2,1,8,5,3,1,2,6,5};
 int oflag[MAX], tflag[MAX], cflag[MAX];
 int f[MAX];
+int b[MAX];
 int main()
 {
 	int n = sizeof(a) / sizeof(a[0]);
@@ -37,12 +38,14 @@ int main()
 	}
 	int res = f[n - 1];
 	cout <<"Result: "<< res<<endl<<"Checking: ";
-	REP(i, n) if (!cflag[i]) {
-		a[i-1] *= a[i];
+	int m = 0;
+	REP(i, n) {
+		if (cflag[i]) b[m] = a[i]; else b[--m] *= a[i];
+		m++;
 	}
 	int sum = 0;
-	REP(i, n) if (cflag[i]) {
-		cout << a[i] << " "; sum += a[i];
+	REP(i, m) {
+		cout << b[i] << " "; sum += b[i];
 	}
 	cout << endl << boolalpha<<(sum==res);
 	return 0;
