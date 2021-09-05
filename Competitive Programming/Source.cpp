@@ -29,10 +29,5 @@ void main() {
 	ios_base::sync_with_stdio(false);
 
 	int t; cin >> t;
-	//this is branch1
-	//this is hot fix
-	// Helooooooooooooooooooo
-	//asjdasjdlasflsdfj
-	//du ma concacdfdf
-	//fgkfdlhlgfhl
+	//conflict test
 }
