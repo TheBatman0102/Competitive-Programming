@@ -25,33 +25,4 @@ typedef unsigned long long ull;
 void main() {
 	ios_base::sync_with_stdio(false);
 
-	int t; cin >> t;
-	forn(_, t) {
-		int n; cin >> n;
-		vector<int> a(n+1), b(n+1);
-		forab(i,1, 1+n)
-			cin >> a[i];
-		vector<int> giamInd, tangInd;
-		int tongGiam=0, tongTang=0;
-		forab(i,1,1+ n) {
-			cin >> b[i];
-			if (a[i] > b[i]) {
-				giamInd.push_back(i);
-				tongGiam += a[i] - b[i];
-			}
-			else if (a[i] < b[i]) {
-				tangInd.push_back(i);
-				tongTang += b[i] - a[i];
-			}
-		}
-		if (tongGiam != tongTang) {
-			cout << -1 << endl;
-			continue;
-		}
-		if (giamInd.empty()) {
-			cout << 0 << endl;
-			continue;
-
-
-	}
 }
