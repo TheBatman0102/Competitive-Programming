@@ -51,18 +51,7 @@ void main() {
 		if (giamInd.empty()) {
 			cout << 0 << endl;
 			continue;
-		}
-		cout << tongGiam << endl;
-		int curTang = 0;
-		for (int i : giamInd) {
 
-			while (a[i] > b[i]) {
-				cout << i << " " << tangInd[curTang] << endl;
-				a[i]--; a[tangInd[curTang]]++;
-				if (a[tangInd[curTang]] == b[tangInd[curTang]])
-					curTang++;
-			}
-		}
 
 	}
 }
