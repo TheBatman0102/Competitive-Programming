@@ -25,4 +25,7 @@ typedef unsigned long long ull;
 void main() {
 	ios_base::sync_with_stdio(false);
 
+	hello;
+	it's me';
+
 }
